@@ -58,12 +58,12 @@ local ImportantLabel = MainTab:CreateLabel("The Script Is Still In Beta, Expect 
 local ImportantLabel = MainTab:CreateLabel("Important: You Will Need To Add Your Own Groq API Key [Tutorial Dropping Soon!].", nil, Color3.fromRGB(0, 0, 0), false)
 local WarningLabel = MainTab:CreateLabel("Warning: Groq Does Not Allow Users To Use VPNs So Please Turn Off Any Connected VPNs.", nil, Color3.fromRGB(0, 0, 0), false)
 local AIModelSection = MainTab:CreateSection("AI Model")
-local AIModelLabel = MainTab:CreateLabel("Selected AI Model: None.", nil, Color3.fromRGB(0, 0, 0), false)
+local AIModelLabel = MainTab:CreateLabel("Selected AI Model: None", nil, Color3.fromRGB(0, 0, 0), false)
 local GPTOSS120B = MainTab:CreateButton({
     Name = "Set AI Model To: GPT OSS 120B",
     Callback = function()
         AIModel = "GPTOSS120B"  
-        AIModelLabel:Set("Selected AI Model: GPT OSS 120B.", nil, Color3.fromRGB(0, 0, 0), false) 
+        AIModelLabel:Set("Selected AI Model: GPT OSS 120B", nil, Color3.fromRGB(0, 0, 0), false) 
     end,
 })
 
@@ -71,7 +71,7 @@ local KimiK2 = MainTab:CreateButton({
     Name = "Set AI Model To: Kimi K2",
     Callback = function()
         AIModel = "KimiK2"  
-        AIModelLabel:Set("Selected AI Model: Kimi K2.", nil, Color3.fromRGB(0, 0, 0), false) 
+        AIModelLabel:Set("Selected AI Model: Kimi K2", nil, Color3.fromRGB(0, 0, 0), false) 
     end,
 })
 
@@ -79,7 +79,7 @@ local Qwen332B = MainTab:CreateButton({
     Name = "Set AI Model To: Qwen 3 32B",
     Callback = function()
         AIModel = "Qwen332B"  
-        AIModelLabel:Set("Selected AI Model: Qwen 3 32B.", nil, Color3.fromRGB(0, 0, 0), false) 
+        AIModelLabel:Set("Selected AI Model: Qwen 3 32B", nil, Color3.fromRGB(0, 0, 0), false) 
     end,
 })
 
@@ -87,17 +87,17 @@ local Llama4Scout = MainTab:CreateButton({
     Name = "Set AI Model To: Llama 4 Scout",
     Callback = function()
         AIModel = "Llama4Scout"  
-        AIModelLabel:Set("Selected AI Model: Llama 4 Scout.", nil, Color3.fromRGB(0, 0, 0), false) 
+        AIModelLabel:Set("Selected AI Model: Llama 4 Scout", nil, Color3.fromRGB(0, 0, 0), false) 
     end,
 })
 
 local AIOutPutMethodSection = MainTab:CreateSection("AI OutPut Method")
-local AIOutPutMethodLabel = MainTab:CreateLabel("Selected OutPut Method: None.", nil, Color3.fromRGB(0, 0, 0), false)
+local AIOutPutMethodLabel = MainTab:CreateLabel("Selected OutPut Method: None", nil, Color3.fromRGB(0, 0, 0), false)
 local OutputMethodNotificationButton = MainTab:CreateButton({
     Name = "Set OutPut Method To: Notification",
     Callback = function()
         OutPutMethod = "Notification"  
-        AIOutPutMethodLabel:Set("Selected OutPut Method: Notification.", nil, Color3.fromRGB(0, 0, 0), false) 
+        AIOutPutMethodLabel:Set("Selected OutPut Method: Notification", nil, Color3.fromRGB(0, 0, 0), false) 
     end,
 })
 
@@ -105,7 +105,7 @@ local OutputMethodChat = MainTab:CreateButton({
     Name = "Set OutPut Method To: Chat",
     Callback = function()
         OutPutMethod = "Chat"  
-        AIOutPutMethodLabel:Set("Selected OutPut Method: Chat.", nil, Color3.fromRGB(0, 0, 0), false) 
+        AIOutPutMethodLabel:Set("Selected OutPut Method: Chat", nil, Color3.fromRGB(0, 0, 0), false) 
     end,
 })
 
@@ -113,7 +113,7 @@ local OutputMethodCopyButton = MainTab:CreateButton({
     Name = "Set OutPut Method To: Copy",
     Callback = function()
         OutPutMethod = "Copy"  
-        AIOutPutMethodLabel:Set("Selected OutPut Method: Copy.", nil, Color3.fromRGB(0, 0, 0), false) 
+        AIOutPutMethodLabel:Set("Selected OutPut Method: Copy", nil, Color3.fromRGB(0, 0, 0), false) 
     end,
 })
 
