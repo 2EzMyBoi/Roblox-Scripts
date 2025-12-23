@@ -3,7 +3,7 @@
   -2EzMyBoi
 ]]
 
--- loadstring(game:HttpGet("https://raw.githubusercontent.com/2EzMyBoi/Roblox-Script/refs/heads/main/UselessBypasser",true))()
+-- loadstring(game:HttpGet("https://raw.githubusercontent.com/2EzMyBoi/Roblox-Scripts/refs/heads/main/UselessBypasser",true))()
 
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local TextChatService = game:GetService("TextChatService")
