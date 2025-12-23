@@ -1,0 +1,258 @@
+--[[
+  I Hope you Guys Enjoy!
+  -2EzMyBoi
+]]
+
+-- loadstring(game:HttpGet("https://raw.githubusercontent.com/2EzMyBoi/Roblox-Script/refs/heads/main/UselessBypasser",true))()
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local TextChatService = game:GetService("TextChatService")
+local ChatService = game:GetService("Chat")
+Method = "None"
+Bypass = ""
+UnBypassedString = ""
+
+local Window = Rayfield:CreateWindow({
+   Name = "Useless Bypasser",
+   Icon = 0, 
+   LoadingTitle = "Useless Bypasser",
+   LoadingSubtitle = "By 2EzMyBoi",
+   ShowText = "Bypasser",
+   Theme = "Default", 
+
+   ToggleUIKeybind = "Z",
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, 
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, 
+      FileName = "Useless"
+   },
+
+   Discord = {
+      Enabled = false, 
+      Invite = "noinvitelink", 
+      RememberJoins = true 
+   },
+
+   KeySystem = false, 
+   KeySettings = {
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "No method of obtaining the key is provided",
+      FileName = "Key", 
+      SaveKey = true, 
+      GrabKeyFromSite = false,
+      Key = {"Hello"} 
+   }
+})
+
+local MainTab = Window:CreateTab("Main", nil)
+local MainSection = MainTab:CreateSection("Information")
+local WarningLabel = MainTab:CreateLabel("Warning: You May Get Banned.", nil, Color3.fromRGB(0, 0, 0), false)
+local WarningLabel2 = MainTab:CreateLabel("Long Sentences Might Get Tagged.", nil, Color3.fromRGB(0, 0, 0), false)
+local ServiceLabel = MainTab:CreateLabel("Detecting ChatService..", nil, Color3.fromRGB(0, 0, 0), false)
+if TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+    ServiceLabel:Set("Game is using TextChatService.", nil, Color3.fromRGB(0, 0, 0), false)
+elseif TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService then
+    ServiceLabel:Set("Game is using LegacyChatService.", nil, Color3.fromRGB(0, 0, 0), false)
+else
+    ServiceLabel:Set("Error: Could Not find ChatService [Script Should Still Work]", nil, Color3.fromRGB(0, 0, 0), false)
+end
+local MainSection = MainTab:CreateSection("Method")
+local MethodLabel = MainTab:CreateLabel("Selected Bypass Method: None", nil, Color3.fromRGB(0, 0, 0), false)
+local TMMethod = MainTab:CreateButton({
+    Name = "Set Bypass Method To: TM Method",
+    Callback = function()
+        Method = "TM"
+        BypassFunction(UnBypassedString)
+        MethodLabel:Set("Selected Bypass Method: TM Method", nil, Color3.fromRGB(0, 0, 0), false) 
+    end,
+})
+
+local CommaMethod = MainTab:CreateButton({
+    Name = "Set Bypass Method To: Comma Method",
+    Callback = function()
+        Method = "Comma"
+        BypassFunction(UnBypassedString)
+        MethodLabel:Set("Selected Bypass Method: Comma Method", nil, Color3.fromRGB(0, 0, 0), false) 
+    end,
+})
+
+local LineMethod = MainTab:CreateButton({
+    Name = "Set Bypass Method To: Line Method",
+    Callback = function()
+        Method = "Line"
+        BypassFunction(UnBypassedString)
+        MethodLabel:Set("Selected Bypass Method: Line Method", nil, Color3.fromRGB(0, 0, 0), false) 
+    end,
+})
+
+local MainSection = MainTab:CreateSection("Bypass")
+local UnBypassInput = MainTab:CreateLabel("UnBypassed Input: None", nil, Color3.fromRGB(0, 0, 0), false)
+local BypassOutput = MainTab:CreateLabel("Bypass Output: None", nil, Color3.fromRGB(0, 0, 0), false)
+
+local BypassInput = MainTab:CreateInput({
+    Name = "Bypass",
+    CurrentValue = "",
+    PlaceholderText = "Enter Here",
+    RemoveTextAfterFocusLost = true,
+    Flag = "Bypassing",
+    Callback = function(UnBypassed)  
+        UnBypassInput:Set("UnBypassed Input: " .. tostring(UnBypassed), nil, Color3.fromRGB(0, 0, 0), false)
+        UnBypassedString = UnBypassed
+        BypassFunction(UnBypassed)
+    end,
+})
+
+local SayButton = MainTab:CreateButton({
+   Name = "Say Bypassed Message",
+   Callback = function()
+        local Chatting, Chat = pcall(function()
+            return TextChatService.ChatInputBarConfiguration.TargetTextChannel
+        end)
+        
+        if Chatting and Chat then
+            Chat:SendAsync(Bypass)
+        else
+            warn("Error: Could Not Send")
+        end
+   end,
+})
+
+local CopyButton = MainTab:CreateButton({
+   Name = "Copy Bypassed Message",
+   Callback = function()
+        setclipboard(tostring(Bypass))
+   end,
+})
+
+local OthersTab = Window:CreateTab("Others", nil)
+
+local CopyButton = OthersTab:CreateButton({
+   Name = "Copy Pastebin Profile",
+   Callback = function()
+        setclipboard("https://pastebin.com/u/2EzMyBoi")
+   end,
+})
+
+local Discord = OthersTab:CreateButton({
+   Name = "Copy Discord Invite",
+   Callback = function()
+        setclipboard("https://discord.gg/Q9zpPAUBVG")
+   end,
+})
+
+local UnLoad = OthersTab:CreateButton({
+   Name = "Un-Load",
+   Callback = function()
+        Rayfield:Destroy()
+   end,
+})
+
+-- // --------------------------------------------------
+
+function BypassFunction(UnBypassed)
+    if Method == "None" then
+        Rayfield:Notify({
+            Title = "No Method Selected",
+            Content = "Please Choose a Bypass Method To Continue",
+            Duration = 5,
+            Image = nil,
+        })
+    elseif Method == "TM" then
+        local Tricker = "™"
+        Bypass = ""
+
+        for Count, CodePoint in utf8.codes(UnBypassed) do
+            local Letter = utf8.char(CodePoint)
+            Bypass = Bypass .. Letter .. Tricker
+        end
+                
+        local LastTM = string.find(Bypass, Tricker, 1, true)
+        local Index = nil
+                
+        while LastTM do
+            Index = LastTM
+            LastTM = string.find(Bypass, Tricker, Index + 1, true)
+        end
+        if Index then
+        Bypass =
+            string.sub(Bypass, 1, Index - 1) .. string.sub(Bypass, Index + #Tricker)
+        end
+        BypassOutput:Set("Bypass Output: " .. tostring(Bypass), nil, Color3.fromRGB(0, 0, 0), false) 
+    elseif Method == "Comma" then
+        local Tricker = "؍"
+        local Reversed = {}
+        Bypass = ""
+        local Characters = {}
+        local IsLTR = true
+        
+        for Count, CodePoint in utf8.codes(UnBypassed) do
+            table.insert(Characters, utf8.char(CodePoint))
+        end
+        
+        for Count, CodePoint in utf8.codes(UnBypassed) do
+            if
+                (CodePoint >= 0x0590 and CodePoint <= 0x05FF) or (CodePoint >= 0x0600 and CodePoint <= 0x06FF) or (CodePoint >= 0x0750 and CodePoint <= 0x077F) or (CodePoint >= 0x08A0 and CodePoint <= 0x08FF) or (CodePoint >= 0x0700 and CodePoint <= 0x074F) or  (CodePoint >= 0x0780 and CodePoint <= 0x07BF) or (CodePoint >= 0x07C0 and CodePoint <= 0x07FF) or (CodePoint >= 0xFB50 and CodePoint <= 0xFDFF) or (CodePoint >= 0xFE70 and CodePoint <= 0xFEFF)     
+            then
+                IsLTR = false
+                break
+            end
+        end
+
+        if IsLTR then
+            for Count = #Characters, 1, -1 do
+                table.insert(Reversed, Characters[Count])
+            end
+        else
+            Reversed = Characters
+        end
+
+        for Count, Letter in ipairs(Reversed) do
+            Bypass = Bypass .. Tricker .. Letter
+        end
+        BypassOutput:Set("Bypass Output: " .. tostring(Bypass), nil, Color3.fromRGB(0, 0, 0), false)
+    elseif Method == "Line" then
+        local Tricker = "ـ"
+        local Reversed = {}
+        Bypass = ""
+        local Characters = {}
+        local IsLTR = true
+        
+        for Count, CodePoint in utf8.codes(UnBypassed) do
+            table.insert(Characters, utf8.char(CodePoint))
+        end
+        
+        for Count, CodePoint in utf8.codes(UnBypassed) do
+            if
+                (CodePoint >= 0x0590 and CodePoint <= 0x05FF) or (CodePoint >= 0x0600 and CodePoint <= 0x06FF) or (CodePoint >= 0x0750 and CodePoint <= 0x077F) or (CodePoint >= 0x08A0 and CodePoint <= 0x08FF) or (CodePoint >= 0x0700 and CodePoint <= 0x074F) or  (CodePoint >= 0x0780 and CodePoint <= 0x07BF) or (CodePoint >= 0x07C0 and CodePoint <= 0x07FF) or (CodePoint >= 0xFB50 and CodePoint <= 0xFDFF) or (CodePoint >= 0xFE70 and CodePoint <= 0xFEFF)     
+            then
+                IsLTR = false
+                break
+            end
+        end
+
+        if IsLTR then
+            for Count = #Characters, 1, -1 do
+                table.insert(Reversed, Characters[Count])
+            end
+        else
+            Reversed = Characters
+        end
+
+        for Count, Letter in ipairs(Reversed) do
+            Bypass = Bypass .. Tricker .. Letter
+        end
+        BypassOutput:Set("Bypass Output: " .. tostring(Bypass), nil, Color3.fromRGB(0, 0, 0), false)
+      elseif Method == "WillAddSoon" then
+        Bypass = ""
+        for Count = 1, #UnBypassed do
+            local Character = UnBypassed:sub(Count, Count)
+            Bypass = Bypass .. (SoonIHope[Character] or Character)
+        end
+        BypassOutput:Set("Bypass Output: " .. tostring(Bypass), nil, Color3.fromRGB(0, 0, 0), false)
+    end
+end
