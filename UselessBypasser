@@ -183,7 +183,6 @@ function BypassFunction(UnBypassed)
         })
     elseif Method == "Comma" then
         local Tricker = "؍"
-        local TrickerCode = utf8.codepoint(Tricker)
         local Reversed = {}
         Bypass = ""
         local Characters = {}
@@ -194,11 +193,9 @@ function BypassFunction(UnBypassed)
         end
         
         for _, CodePoint in utf8.codes(UnBypassed) do
-            if CodePoint ~= TrickerCode then
-                if (CodePoint >= 0x0590 and CodePoint <= 0x05FF) or (CodePoint >= 0x0600 and CodePoint <= 0x06FF) or (CodePoint >= 0x0750 and CodePoint <= 0x077F) or (CodePoint >= 0x08A0 and CodePoint <= 0x08FF) or (CodePoint >= 0x0700 and CodePoint <= 0x074F) or (CodePoint >= 0x0780 and CodePoint <= 0x07BF) or (CodePoint >= 0x07C0 and CodePoint <= 0x07FF) or (CodePoint >= 0xFB50 and CodePoint <= 0xFDFF) or (CodePoint >= 0xFE70 and CodePoint <= 0xFEFF) then
-                    IsLTR = false
-                    break
-                end
+            if (CodePoint >= 0x0590 and CodePoint <= 0x05FF) or (CodePoint >= 0x0600 and CodePoint <= 0x06FF) or (CodePoint >= 0x0750 and CodePoint <= 0x077F) or (CodePoint >= 0x08A0 and CodePoint <= 0x08FF) or (CodePoint >= 0x0700 and CodePoint <= 0x074F) or (CodePoint >= 0x0780 and CodePoint <= 0x07BF) or (CodePoint >= 0x07C0 and CodePoint <= 0x07FF) or (CodePoint >= 0xFB50 and CodePoint <= 0xFDFF) or (CodePoint >= 0xFE70 and CodePoint <= 0xFEFF) then
+                IsLTR = false
+                break
             end
         end
 
@@ -216,7 +213,6 @@ function BypassFunction(UnBypassed)
         BypassOutput:Set("Bypassed Output: " .. tostring(Bypass), nil, Color3.fromRGB(0, 0, 0), false)
     elseif Method == "LineV1" then
         local Tricker = "ـ"
-        local TrickerCode = utf8.codepoint(Tricker)
         local Reversed = {}
         Bypass = ""
         local Characters = {}
@@ -227,11 +223,9 @@ function BypassFunction(UnBypassed)
         end
         
         for _, CodePoint in utf8.codes(UnBypassed) do
-            if CodePoint ~= TrickerCode then
-                if (CodePoint >= 0x0590 and CodePoint <= 0x05FF) or (CodePoint >= 0x0600 and CodePoint <= 0x06FF) or (CodePoint >= 0x0750 and CodePoint <= 0x077F) or (CodePoint >= 0x08A0 and CodePoint <= 0x08FF) or (CodePoint >= 0x0700 and CodePoint <= 0x074F) or (CodePoint >= 0x0780 and CodePoint <= 0x07BF) or (CodePoint >= 0x07C0 and CodePoint <= 0x07FF) or (CodePoint >= 0xFB50 and CodePoint <= 0xFDFF) or (CodePoint >= 0xFE70 and CodePoint <= 0xFEFF) then
-                    IsLTR = false
-                    break
-                end
+            if (CodePoint >= 0x0590 and CodePoint <= 0x05FF) or (CodePoint >= 0x0600 and CodePoint <= 0x06FF) or (CodePoint >= 0x0750 and CodePoint <= 0x077F) or (CodePoint >= 0x08A0 and CodePoint <= 0x08FF) or (CodePoint >= 0x0700 and CodePoint <= 0x074F) or (CodePoint >= 0x0780 and CodePoint <= 0x07BF) or (CodePoint >= 0x07C0 and CodePoint <= 0x07FF) or (CodePoint >= 0xFB50 and CodePoint <= 0xFDFF) or (CodePoint >= 0xFE70 and CodePoint <= 0xFEFF) then
+                IsLTR = false
+                break
             end
         end
 
@@ -249,7 +243,6 @@ function BypassFunction(UnBypassed)
         BypassOutput:Set("Bypassed Output: " .. tostring(Bypass), nil, Color3.fromRGB(0, 0, 0), false)
     elseif Method == "LineV2" then
         local Tricker = "־"
-        local TrickerCode = utf8.codepoint(Tricker)
         local Reversed = {}
         Bypass = ""
         local Characters = {}
@@ -260,11 +253,9 @@ function BypassFunction(UnBypassed)
         end
         
         for _, CodePoint in utf8.codes(UnBypassed) do
-            if CodePoint ~= TrickerCode then
-                if (CodePoint >= 0x0590 and CodePoint <= 0x05FF) or (CodePoint >= 0x0600 and CodePoint <= 0x06FF) or (CodePoint >= 0x0750 and CodePoint <= 0x077F) or (CodePoint >= 0x08A0 and CodePoint <= 0x08FF) or (CodePoint >= 0x0700 and CodePoint <= 0x074F) or (CodePoint >= 0x0780 and CodePoint <= 0x07BF) or (CodePoint >= 0x07C0 and CodePoint <= 0x07FF) or (CodePoint >= 0xFB50 and CodePoint <= 0xFDFF) or (CodePoint >= 0xFE70 and CodePoint <= 0xFEFF) then
-                    IsLTR = false
-                    break
-                end
+            if (CodePoint >= 0x0590 and CodePoint <= 0x05FF) or (CodePoint >= 0x0600 and CodePoint <= 0x06FF) or (CodePoint >= 0x0750 and CodePoint <= 0x077F) or (CodePoint >= 0x08A0 and CodePoint <= 0x08FF) or (CodePoint >= 0x0700 and CodePoint <= 0x074F) or (CodePoint >= 0x0780 and CodePoint <= 0x07BF) or (CodePoint >= 0x07C0 and CodePoint <= 0x07FF) or (CodePoint >= 0xFB50 and CodePoint <= 0xFDFF) or (CodePoint >= 0xFE70 and CodePoint <= 0xFEFF) then
+                IsLTR = false
+                break
             end
         end
 
@@ -282,7 +273,6 @@ function BypassFunction(UnBypassed)
         BypassOutput:Set("Bypassed Output: " .. tostring(Bypass), nil, Color3.fromRGB(0, 0, 0), false)
     elseif Method == "Dot" then
         local Tricker = "؞"
-        local TrickerCode = utf8.codepoint(Tricker)
         local Reversed = {}
         Bypass = ""
         local Characters = {}
@@ -293,11 +283,9 @@ function BypassFunction(UnBypassed)
         end
         
         for _, CodePoint in utf8.codes(UnBypassed) do
-            if CodePoint ~= TrickerCode then
-                if (CodePoint >= 0x0590 and CodePoint <= 0x05FF) or (CodePoint >= 0x0600 and CodePoint <= 0x06FF) or (CodePoint >= 0x0750 and CodePoint <= 0x077F) or (CodePoint >= 0x08A0 and CodePoint <= 0x08FF) or (CodePoint >= 0x0700 and CodePoint <= 0x074F) or (CodePoint >= 0x0780 and CodePoint <= 0x07BF) or (CodePoint >= 0x07C0 and CodePoint <= 0x07FF) or (CodePoint >= 0xFB50 and CodePoint <= 0xFDFF) or (CodePoint >= 0xFE70 and CodePoint <= 0xFEFF) then
-                    IsLTR = false
-                    break
-                end
+            if (CodePoint >= 0x0590 and CodePoint <= 0x05FF) or (CodePoint >= 0x0600 and CodePoint <= 0x06FF) or (CodePoint >= 0x0750 and CodePoint <= 0x077F) or (CodePoint >= 0x08A0 and CodePoint <= 0x08FF) or (CodePoint >= 0x0700 and CodePoint <= 0x074F) or (CodePoint >= 0x0780 and CodePoint <= 0x07BF) or (CodePoint >= 0x07C0 and CodePoint <= 0x07FF) or (CodePoint >= 0xFB50 and CodePoint <= 0xFDFF) or (CodePoint >= 0xFE70 and CodePoint <= 0xFEFF) then
+                IsLTR = false
+                break
             end
         end
 
@@ -315,7 +303,6 @@ function BypassFunction(UnBypassed)
         BypassOutput:Set("Bypassed Output: " .. tostring(Bypass), nil, Color3.fromRGB(0, 0, 0), false)
     elseif Method == "Star" then
         local Tricker = "٭"
-        local TrickerCode = utf8.codepoint(Tricker)
         local Reversed = {}
         Bypass = ""
         local Characters = {}
@@ -326,11 +313,9 @@ function BypassFunction(UnBypassed)
         end
         
         for _, CodePoint in utf8.codes(UnBypassed) do
-            if CodePoint ~= TrickerCode then
-                if (CodePoint >= 0x0590 and CodePoint <= 0x05FF) or (CodePoint >= 0x0600 and CodePoint <= 0x06FF) or (CodePoint >= 0x0750 and CodePoint <= 0x077F) or (CodePoint >= 0x08A0 and CodePoint <= 0x08FF) or (CodePoint >= 0x0700 and CodePoint <= 0x074F) or (CodePoint >= 0x0780 and CodePoint <= 0x07BF) or (CodePoint >= 0x07C0 and CodePoint <= 0x07FF) or (CodePoint >= 0xFB50 and CodePoint <= 0xFDFF) or (CodePoint >= 0xFE70 and CodePoint <= 0xFEFF) then
-                    IsLTR = false
-                    break
-                end
+            if (CodePoint >= 0x0590 and CodePoint <= 0x05FF) or (CodePoint >= 0x0600 and CodePoint <= 0x06FF) or (CodePoint >= 0x0750 and CodePoint <= 0x077F) or (CodePoint >= 0x08A0 and CodePoint <= 0x08FF) or (CodePoint >= 0x0700 and CodePoint <= 0x074F) or (CodePoint >= 0x0780 and CodePoint <= 0x07BF) or (CodePoint >= 0x07C0 and CodePoint <= 0x07FF) or (CodePoint >= 0xFB50 and CodePoint <= 0xFDFF) or (CodePoint >= 0xFE70 and CodePoint <= 0xFEFF) then
+                IsLTR = false
+                break
             end
         end
 
