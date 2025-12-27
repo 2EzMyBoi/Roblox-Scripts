@@ -52,7 +52,7 @@ local Window = Rayfield:CreateWindow({
 local MainTab = Window:CreateTab("Main", nil)
 local MainSection = MainTab:CreateSection("Information")
 local WarningLabel = MainTab:CreateLabel("Warning: You May Get Banned.", nil, Color3.fromRGB(0, 0, 0), false)
-local WarningLabel2 = MainTab:CreateLabel("Long Sentences Might Get Tagged.", nil, Color3.fromRGB(0, 0, 0), false)
+local WarningLabel2 = MainTab:CreateLabel("Long Sentences/Some Words Might Get Tagged.", nil, Color3.fromRGB(0, 0, 0), false)
 local ServiceLabel = MainTab:CreateLabel("Detecting ChatService..", nil, Color3.fromRGB(0, 0, 0), false)
 if TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
     ServiceLabel:Set("Game is using TextChatService.", nil, Color3.fromRGB(0, 0, 0), false)
@@ -64,16 +64,25 @@ end
 local MainSection = MainTab:CreateSection("Method")
 local MethodLabel = MainTab:CreateLabel("Selected Bypass Method: None", nil, Color3.fromRGB(0, 0, 0), false)
 
-local CommaMethod = MainTab:CreateButton({
-    Name = "Set Bypass Method To: Comma Method",
+local CommaV1Method = MainTab:CreateButton({
+    Name = "Set Bypass Method To: Comma V1 Method",
     Callback = function()
-        Method = "Comma"
+        Method = "CommaV1"
         BypassFunction(UnBypassedString)
-        MethodLabel:Set("Selected Bypass Method: Comma Method", nil, Color3.fromRGB(0, 0, 0), false) 
+        MethodLabel:Set("Selected Bypass Method: Comma V1 Method", nil, Color3.fromRGB(0, 0, 0), false) 
     end,
 })
 
-local LineMethod = MainTab:CreateButton({
+local CommaV2Method = MainTab:CreateButton({
+    Name = "Set Bypass Method To: Comma V2 Method",
+    Callback = function()
+        Method = "CommaV2"
+        BypassFunction(UnBypassedString)
+        MethodLabel:Set("Selected Bypass Method: Comma V2 Method", nil, Color3.fromRGB(0, 0, 0), false) 
+    end,
+})
+
+local LineV1Method = MainTab:CreateButton({
     Name = "Set Bypass Method To: Line V1 Method",
     Callback = function()
         Method = "LineV1"
@@ -82,7 +91,7 @@ local LineMethod = MainTab:CreateButton({
     end,
 })
 
-local LineMethod = MainTab:CreateButton({
+local LineV2Method = MainTab:CreateButton({
     Name = "Set Bypass Method To: Line V2 Method",
     Callback = function()
         Method = "LineV2"
@@ -100,14 +109,34 @@ local DotMethod = MainTab:CreateButton({
     end,
 })
 
-local StarMethod = MainTab:CreateButton({
-    Name = "Set Bypass Method To: Star Method",
+local DotMethod = MainTab:CreateButton({
+    Name = "Set Bypass Method To: Quote Method",
     Callback = function()
-        Method = "Star"
+        Method = "Quote"
         BypassFunction(UnBypassedString)
-        MethodLabel:Set("Selected Bypass Method: Star Method", nil, Color3.fromRGB(0, 0, 0), false) 
+        MethodLabel:Set("Selected Bypass Method: Quote Method", nil, Color3.fromRGB(0, 0, 0), false) 
     end,
 })
+
+local DotMethod = MainTab:CreateButton({
+    Name = "Set Bypass Method To: Double Quote Method",
+    Callback = function()
+        Method = "DoubleQuote"
+        BypassFunction(UnBypassedString)
+        MethodLabel:Set("Selected Bypass Method: Double Quote Method", nil, Color3.fromRGB(0, 0, 0), false) 
+    end,
+})
+
+if TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService then
+    local StarMethod = MainTab:CreateButton({
+        Name = "Set Bypass Method To: Star Method",
+        Callback = function()
+            Method = "Star"
+            BypassFunction(UnBypassedString)
+            MethodLabel:Set("Selected Bypass Method: Star Method", nil, Color3.fromRGB(0, 0, 0), false) 
+        end,
+    })
+end
 
 local MainSection = MainTab:CreateSection("Bypass")
 local UnBypassInput = MainTab:CreateLabel("UnBypassed Input: None", nil, Color3.fromRGB(0, 0, 0), false)
@@ -181,11 +210,62 @@ function BypassFunction(UnBypassed)
             Duration = 5,
             Image = nil,
         })
-    elseif Method == "Comma" then
+    elseif Method == "CommaV1" then
         local Tricker = "؍"
-        local Reversed = {}
         Bypass = ""
+        local Reversed = {}
         local Characters = {}
+        local ReversedDisplay = {}
+        local CharactersDisplay = {}
+        local Display = ""
+        local IsLTR = true
+        
+        for Count, CodePoint in utf8.codes(UnBypassed) do
+            table.insert(Characters, utf8.char(CodePoint))
+        end
+        
+        for _, CodePoint in utf8.codes(UnBypassed) do
+            if (CodePoint >= 0x0590 and CodePoint <= 0x05FF) or (CodePoint >= 0x0600 and CodePoint <= 0x06FF) or (CodePoint >= 0x0750 and CodePoint <= 0x077F) or (CodePoint >= 0x08A0 and CodePoint <= 0x08FF) or (CodePoint >= 0x0700 and CodePoint <= 0x074F) or (CodePoint >= 0x0780 and CodePoint <= 0x07BF) or (CodePoint >= 0x07C0 and CodePoint <= 0x07FF) or (CodePoint >= 0xFB50 and CodePoint <= 0xFDFF) or (CodePoint >= 0xFE70 and CodePoint <= 0xFEFF) then
+                IsLTR = false
+                break
+            end
+        end
+
+        if IsLTR then
+            for Count = #Characters, 1, -1 do
+                table.insert(Reversed, Characters[Count])
+            end
+        else
+            Reversed = Characters
+        end
+        
+        for Count, Letter in ipairs(Reversed) do
+            Bypass = Bypass .. Tricker .. Letter
+        end
+
+        for Count, CodePoint in utf8.codes(Bypass) do
+            table.insert(CharactersDisplay, utf8.char(CodePoint))
+        end
+
+        if IsLTR then
+            for Count = #CharactersDisplay, 1, -1 do
+                table.insert(ReversedDisplay, CharactersDisplay[Count])
+            end
+        else
+            ReversedDisplay = CharactersDisplay
+        end
+
+        local Display = table.concat(ReversedDisplay)
+        
+        BypassOutput:Set("Bypassed Output: " .. tostring(Display), nil, Color3.fromRGB(0, 0, 0), false)
+    elseif Method == "CommaV2" then
+        local Tricker = "ﹺ"
+        Bypass = ""
+        local Reversed = {}
+        local Characters = {}
+        local ReversedDisplay = {}
+        local CharactersDisplay = {}
+        local Display = ""
         local IsLTR = true
         
         for Count, CodePoint in utf8.codes(UnBypassed) do
@@ -210,12 +290,30 @@ function BypassFunction(UnBypassed)
         for Count, Letter in ipairs(Reversed) do
             Bypass = Bypass .. Tricker .. Letter
         end
-        BypassOutput:Set("Bypassed Output: " .. tostring(Bypass), nil, Color3.fromRGB(0, 0, 0), false)
+        
+        for Count, CodePoint in utf8.codes(Bypass) do
+            table.insert(CharactersDisplay, utf8.char(CodePoint))
+        end
+
+        if IsLTR then
+            for Count = #CharactersDisplay, 1, -1 do
+                table.insert(ReversedDisplay, CharactersDisplay[Count])
+            end
+        else
+            ReversedDisplay = CharactersDisplay
+        end
+
+        local Display = table.concat(ReversedDisplay)
+        
+        BypassOutput:Set("Bypassed Output: " .. tostring(Display), nil, Color3.fromRGB(0, 0, 0), false)
     elseif Method == "LineV1" then
         local Tricker = "ـ"
-        local Reversed = {}
         Bypass = ""
+        local Reversed = {}
         local Characters = {}
+        local ReversedDisplay = {}
+        local CharactersDisplay = {}
+        local Display = ""
         local IsLTR = true
         
         for Count, CodePoint in utf8.codes(UnBypassed) do
@@ -240,12 +338,30 @@ function BypassFunction(UnBypassed)
         for Count, Letter in ipairs(Reversed) do
             Bypass = Bypass .. Tricker .. Letter
         end
-        BypassOutput:Set("Bypassed Output: " .. tostring(Bypass), nil, Color3.fromRGB(0, 0, 0), false)
+        
+        for Count, CodePoint in utf8.codes(Bypass) do
+            table.insert(CharactersDisplay, utf8.char(CodePoint))
+        end
+
+        if IsLTR then
+            for Count = #CharactersDisplay, 1, -1 do
+                table.insert(ReversedDisplay, CharactersDisplay[Count])
+            end
+        else
+            ReversedDisplay = CharactersDisplay
+        end
+
+        local Display = table.concat(ReversedDisplay)
+        
+        BypassOutput:Set("Bypassed Output: " .. tostring(Display), nil, Color3.fromRGB(0, 0, 0), false)
     elseif Method == "LineV2" then
         local Tricker = "־"
-        local Reversed = {}
         Bypass = ""
+        local Reversed = {}
         local Characters = {}
+        local ReversedDisplay = {}
+        local CharactersDisplay = {}
+        local Display = ""
         local IsLTR = true
         
         for Count, CodePoint in utf8.codes(UnBypassed) do
@@ -270,12 +386,30 @@ function BypassFunction(UnBypassed)
         for Count, Letter in ipairs(Reversed) do
             Bypass = Bypass .. Tricker .. Letter
         end
-        BypassOutput:Set("Bypassed Output: " .. tostring(Bypass), nil, Color3.fromRGB(0, 0, 0), false)
+        
+        for Count, CodePoint in utf8.codes(Bypass) do
+            table.insert(CharactersDisplay, utf8.char(CodePoint))
+        end
+
+        if IsLTR then
+            for Count = #CharactersDisplay, 1, -1 do
+                table.insert(ReversedDisplay, CharactersDisplay[Count])
+            end
+        else
+            ReversedDisplay = CharactersDisplay
+        end
+
+        local Display = table.concat(ReversedDisplay)
+        
+        BypassOutput:Set("Bypassed Output: " .. tostring(Display), nil, Color3.fromRGB(0, 0, 0), false)
     elseif Method == "Dot" then
         local Tricker = "؞"
-        local Reversed = {}
         Bypass = ""
+        local Reversed = {}
         local Characters = {}
+        local ReversedDisplay = {}
+        local CharactersDisplay = {}
+        local Display = ""
         local IsLTR = true
         
         for Count, CodePoint in utf8.codes(UnBypassed) do
@@ -300,12 +434,126 @@ function BypassFunction(UnBypassed)
         for Count, Letter in ipairs(Reversed) do
             Bypass = Bypass .. Tricker .. Letter
         end
-        BypassOutput:Set("Bypassed Output: " .. tostring(Bypass), nil, Color3.fromRGB(0, 0, 0), false)
+        
+        for Count, CodePoint in utf8.codes(Bypass) do
+            table.insert(CharactersDisplay, utf8.char(CodePoint))
+        end
+
+        if IsLTR then
+            for Count = #CharactersDisplay, 1, -1 do
+                table.insert(ReversedDisplay, CharactersDisplay[Count])
+            end
+        else
+            ReversedDisplay = CharactersDisplay
+        end
+
+        local Display = table.concat(ReversedDisplay)
+        
+        BypassOutput:Set("Bypassed Output: " .. tostring(Display), nil, Color3.fromRGB(0, 0, 0), false)
+    elseif Method == "Quote" then
+        local Tricker = "׳"
+        Bypass = ""
+        local Reversed = {}
+        local Characters = {}
+        local ReversedDisplay = {}
+        local CharactersDisplay = {}
+        local Display = ""
+        local IsLTR = true
+        
+        for Count, CodePoint in utf8.codes(UnBypassed) do
+            table.insert(Characters, utf8.char(CodePoint))
+        end
+        
+        for _, CodePoint in utf8.codes(UnBypassed) do
+            if (CodePoint >= 0x0590 and CodePoint <= 0x05FF) or (CodePoint >= 0x0600 and CodePoint <= 0x06FF) or (CodePoint >= 0x0750 and CodePoint <= 0x077F) or (CodePoint >= 0x08A0 and CodePoint <= 0x08FF) or (CodePoint >= 0x0700 and CodePoint <= 0x074F) or (CodePoint >= 0x0780 and CodePoint <= 0x07BF) or (CodePoint >= 0x07C0 and CodePoint <= 0x07FF) or (CodePoint >= 0xFB50 and CodePoint <= 0xFDFF) or (CodePoint >= 0xFE70 and CodePoint <= 0xFEFF) then
+                IsLTR = false
+                break
+            end
+        end
+
+        if IsLTR then
+            for Count = #Characters, 1, -1 do
+                table.insert(Reversed, Characters[Count])
+            end
+        else
+            Reversed = Characters
+        end
+
+        for Count, Letter in ipairs(Reversed) do
+            Bypass = Bypass .. Tricker .. Letter
+        end
+        
+        for Count, CodePoint in utf8.codes(Bypass) do
+            table.insert(CharactersDisplay, utf8.char(CodePoint))
+        end
+
+        if IsLTR then
+            for Count = #CharactersDisplay, 1, -1 do
+                table.insert(ReversedDisplay, CharactersDisplay[Count])
+            end
+        else
+            ReversedDisplay = CharactersDisplay
+        end
+
+        local Display = table.concat(ReversedDisplay)
+        
+        BypassOutput:Set("Bypassed Output: " .. tostring(Display), nil, Color3.fromRGB(0, 0, 0), false)
+    elseif Method == "DoubleQuote" then
+        local Tricker = "״"
+        Bypass = ""
+        local Reversed = {}
+        local Characters = {}
+        local ReversedDisplay = {}
+        local CharactersDisplay = {}
+        local Display = ""
+        local IsLTR = true
+        
+        for Count, CodePoint in utf8.codes(UnBypassed) do
+            table.insert(Characters, utf8.char(CodePoint))
+        end
+        
+        for _, CodePoint in utf8.codes(UnBypassed) do
+            if (CodePoint >= 0x0590 and CodePoint <= 0x05FF) or (CodePoint >= 0x0600 and CodePoint <= 0x06FF) or (CodePoint >= 0x0750 and CodePoint <= 0x077F) or (CodePoint >= 0x08A0 and CodePoint <= 0x08FF) or (CodePoint >= 0x0700 and CodePoint <= 0x074F) or (CodePoint >= 0x0780 and CodePoint <= 0x07BF) or (CodePoint >= 0x07C0 and CodePoint <= 0x07FF) or (CodePoint >= 0xFB50 and CodePoint <= 0xFDFF) or (CodePoint >= 0xFE70 and CodePoint <= 0xFEFF) then
+                IsLTR = false
+                break
+            end
+        end
+
+        if IsLTR then
+            for Count = #Characters, 1, -1 do
+                table.insert(Reversed, Characters[Count])
+            end
+        else
+            Reversed = Characters
+        end
+
+        for Count, Letter in ipairs(Reversed) do
+            Bypass = Bypass .. Tricker .. Letter
+        end
+        
+        for Count, CodePoint in utf8.codes(Bypass) do
+            table.insert(CharactersDisplay, utf8.char(CodePoint))
+        end
+
+        if IsLTR then
+            for Count = #CharactersDisplay, 1, -1 do
+                table.insert(ReversedDisplay, CharactersDisplay[Count])
+            end
+        else
+            ReversedDisplay = CharactersDisplay
+        end
+
+        local Display = table.concat(ReversedDisplay)
+        
+        BypassOutput:Set("Bypassed Output: " .. tostring(Display), nil, Color3.fromRGB(0, 0, 0), false)
     elseif Method == "Star" then
         local Tricker = "٭"
-        local Reversed = {}
         Bypass = ""
+        local Reversed = {}
         local Characters = {}
+        local ReversedDisplay = {}
+        local CharactersDisplay = {}
+        local Display = ""
         local IsLTR = true
         
         for Count, CodePoint in utf8.codes(UnBypassed) do
@@ -330,6 +578,21 @@ function BypassFunction(UnBypassed)
         for Count, Letter in ipairs(Reversed) do
             Bypass = Bypass .. Tricker .. Letter
         end
-        BypassOutput:Set("Bypassed Output: " .. tostring(Bypass), nil, Color3.fromRGB(0, 0, 0), false)
+        
+        for Count, CodePoint in utf8.codes(Bypass) do
+            table.insert(CharactersDisplay, utf8.char(CodePoint))
+        end
+
+        if IsLTR then
+            for Count = #CharactersDisplay, 1, -1 do
+                table.insert(ReversedDisplay, CharactersDisplay[Count])
+            end
+        else
+            ReversedDisplay = CharactersDisplay
+        end
+
+        local Display = table.concat(ReversedDisplay)
+        
+        BypassOutput:Set("Bypassed Output: " .. tostring(Display), nil, Color3.fromRGB(0, 0, 0), false)
     end
 end
